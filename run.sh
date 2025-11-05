@@ -6,7 +6,7 @@ echo "=== $(date): Initializing Discord bot ===" >> "$LOG_FILE"
 
 cd /home/brucho/Projects/Taionca-discord-notificator
 
-source .venv/bin/activate
+source venv/bin/activate
 
 python notifications.py >> "$LOG_FILE" 2>&1
 PYTHON_EXIT_CODE=$?

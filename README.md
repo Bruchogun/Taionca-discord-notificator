@@ -23,16 +23,23 @@ Notifications are sent on specific days of the month (12, 14, 27, and second-to-
 
 ### 1. Clone or download the project
 
+**Windows (PowerShell):**
 ```powershell
 cd c:\Proyectos
-git clone <repository-url> Taionca-discord-notificator
+git clone https://github.com/Bruchogun/Taionca-discord-notificator.git
+cd Taionca-discord-notificator
+```
+
+**Linux/Mac (Bash):**
+```bash
+cd ~/projects
+git clone https://github.com/Bruchogun/Taionca-discord-notificator.git
 cd Taionca-discord-notificator
 ```
 
 ### 2. Create a virtual environment
 
-In PowerShell:
-
+**Windows (PowerShell):**
 ```powershell
 # Create the virtual environment
 python -m venv venv
@@ -46,17 +53,38 @@ python -m venv venv
 > Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 > ```
 
+**Linux/Mac (Bash):**
+```bash
+# Create the virtual environment
+python3 -m venv venv
+
+# Activate the virtual environment
+source venv/bin/activate
+```
+
 ### 3. Install dependencies
 
 With the virtual environment activated:
 
+**Windows (PowerShell):**
 ```powershell
+pip install -r requirements.txt
+```
+
+**Linux/Mac (Bash):**
+```bash
 pip install -r requirements.txt
 ```
 
 Or install manually:
 
+**Windows (PowerShell):**
 ```powershell
+pip install psycopg2-binary discord.py pytz python-dotenv
+```
+
+**Linux/Mac (Bash):**
+```bash
 pip install psycopg2-binary discord.py pytz python-dotenv
 ```
 
@@ -71,9 +99,16 @@ pip install psycopg2-binary discord.py pytz python-dotenv
 
 Copy the example environment file and edit it with your credentials:
 
+**Windows (PowerShell):**
 ```powershell
 Copy-Item .env.example .env
 notepad .env
+```
+
+**Linux/Mac (Bash):**
+```bash
+cp .env.example .env
+nano .env  # or use vim, gedit, etc.
 ```
 
 Edit the `.env` file with your actual values:
@@ -98,7 +133,13 @@ USERS_TO_MONITOR=4,11,22
 
 ### 5. Verify installation
 
+**Windows (PowerShell):**
 ```powershell
+pip list
+```
+
+**Linux/Mac (Bash):**
+```bash
 pip list
 ```
 
@@ -148,8 +189,14 @@ DB_PORT=5433
 
 With the virtual environment activated:
 
+**Windows (PowerShell):**
 ```powershell
 python notifications.py
+```
+
+**Linux/Mac (Bash):**
+```bash
+python3 notifications.py
 ```
 
 The bot will run and:
@@ -163,7 +210,9 @@ The bot will run and:
 5. Send notifications via Discord direct message
 6. Close automatically
 
-### Automation with Windows Task Scheduler
+### Automation
+
+#### Windows (Task Scheduler)
 
 To run the bot automatically every day:
 
@@ -183,6 +232,29 @@ To run the bot automatically every day:
    ```
    C:\Proyectos\Taionca-discord-notificator
    ```
+
+#### Linux/Mac (Cron)
+
+To run the bot automatically every day using cron:
+
+1. Open the crontab editor:
+   ```bash
+   crontab -e
+   ```
+
+2. Add a line to run the script daily (example: every day at 9:00 AM):
+   ```bash
+   0 9 * * * cd ~/projects/Taionca-discord-notificator && ./venv/bin/python3 notifications.py >> ~/projects/Taionca-discord-notificator/logs.txt 2>&1
+   ```
+
+3. Save and exit. The cron job is now active.
+
+**Cron schedule examples:**
+- `0 9 * * *` - Every day at 9:00 AM
+- `0 */6 * * *` - Every 6 hours
+- `30 8 * * 1-5` - Every weekday at 8:30 AM
+
+**Note:** Make sure to use absolute paths in your cron job.
 
 ## 📊 Detailed Functionality
 
@@ -226,8 +298,14 @@ To run the bot automatically every day:
 - Verify the bot has the correct permissions
 
 ### Virtual environment won't activate
+
+**Windows:**
 - Run: `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser`
 - Then try activating again: `.\venv\Scripts\Activate.ps1`
+
+**Linux/Mac:**
+- Make sure you have execute permissions: `chmod +x venv/bin/activate`
+- Then activate: `source venv/bin/activate`
 
 ### Missing .env file error
 - Make sure you copied `.env.example` to `.env`
@@ -243,8 +321,14 @@ The script prints useful information to the console:
 
 To save logs to a file:
 
+**Windows (PowerShell):**
 ```powershell
 python notifications.py > logs.txt 2>&1
+```
+
+**Linux/Mac (Bash):**
+```bash
+python3 notifications.py > logs.txt 2>&1
 ```
 
 ## 🔒 Security

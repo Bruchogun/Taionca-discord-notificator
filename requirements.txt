@@ -1,4 +1,5 @@
-psycopg2-binary>=2.9.0
+psycopg2-binary>=2.9.0; platform_machine != "armv6l" and platform_machine != "armv7l" and platform_machine != "aarch64"
+psycopg2>=2.9.0; platform_machine == "armv6l" or platform_machine == "armv7l" or platform_machine == "aarch64"
 discord.py>=2.0.0
 pytz>=2021.1
 python-dotenv>=0.19.0

@@ -64,6 +64,23 @@ source venv/bin/activate
 
 ### 3. Install dependencies
 
+#### For Raspberry Pi / ARM devices:
+
+Before installing Python packages, you need to install PostgreSQL development libraries:
+
+```bash
+sudo apt-get update
+sudo apt-get install -y libpq-dev python3-dev build-essential
+```
+
+Then install the Python packages:
+
+```bash
+pip install -r requirements.txt
+```
+
+#### For other systems:
+
 With the virtual environment activated:
 
 **Windows (PowerShell):**
@@ -88,9 +105,14 @@ pip install psycopg2-binary discord.py pytz python-dotenv
 pip install psycopg2-binary discord.py pytz python-dotenv
 ```
 
+**Raspberry Pi / ARM (Bash):**
+```bash
+pip install psycopg2 discord.py pytz python-dotenv
+```
+
 #### Project dependencies:
 
-- **psycopg2-binary** (2.9+): PostgreSQL connector for Python
+- **psycopg2-binary** / **psycopg2** (2.9+): PostgreSQL connector for Python (psycopg2 for ARM devices)
 - **discord.py** (2.0+): Library to interact with the Discord API
 - **pytz**: Timezone handling
 - **python-dotenv**: Load environment variables from .env file
@@ -310,6 +332,23 @@ To run the bot automatically every day using cron:
 ### Missing .env file error
 - Make sure you copied `.env.example` to `.env`
 - Verify all required variables are filled in `.env`
+
+### psycopg2 installation error on Raspberry Pi / ARM devices
+
+If you get an error like `pg_config executable not found` or `Error: pg_config executable not found`:
+
+1. Install PostgreSQL development libraries:
+   ```bash
+   sudo apt-get update
+   sudo apt-get install -y libpq-dev python3-dev build-essential
+   ```
+
+2. Then retry installing the requirements:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+The `requirements.txt` file automatically uses `psycopg2` instead of `psycopg2-binary` on ARM architectures (Raspberry Pi).
 
 ## 📝 Logs and Debugging
 
